@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Balancer from "react-wrap-balancer";
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/shared/icons";
 import { siteConfig } from "@/config/site";
 
