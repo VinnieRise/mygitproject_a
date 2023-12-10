@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "VinnieRise",
-  url: "http://localhost:3000/",
+  url: "https://mygitproject-vinnierise.vercel.app/",
   description:
     "Beautifully designed components built with Radix UI and Tailwind CSS.",
   links: {
