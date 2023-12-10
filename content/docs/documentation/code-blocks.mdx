@@ -1,0 +1,73 @@
+---
+title: Блоки кода
+description: Расширенные блоки кода с подсветкой, именами файлов и многим другим.
+---
+
+Блоки кода на сайте документации и в блоге работают на [rehype-pretty-code](https://github.com/atomiks/rehype-pretty-code). Подсветка синтаксиса сделана с помощью [shiki](https://github.com/shikijs/shiki).
+
+Он обладает следующими характеристиками:
+
+1. Красивые блоки кода с подсветкой синтаксиса.
+2. Поддержка тем VS Code.
+3. Работает с сотнями языков.
+4. Выделение строк и слов.
+5. Поддержка номеров строк.
+6. Показывать заголовки блоков кода с использованием мета-строк.
+
+<Callout>
+
+Благодаря Shiki выделение выполняется во время сборки. JavaScript не отправляется клиенту для выделения во время выполнения.
+
+</Callout>
+
+## Пример
+
+```ts title="next.config.js" {3-4} /appDir: true/
+import { withContentlayer } from "next-contentlayer";
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  images: {
+    domains: ["avatars.githubusercontent.com"],
+  },
+  experimental: {
+    appDir: true,
+    serverComponentsExternalPackages: ["@prisma/client"],
+  },
+};
+
+export default withContentlayer(nextConfig);
+```
+
+## Title
+
+````mdx
+```ts title="path/to/file.ts"
+// Код здесь
+```
+````
+
+## Line Highlight
+
+````mdx
+```ts {1,3-6}
+// Выделите строку 1 и строки с 3 по 6
+```
+````
+
+## Word Highlight
+
+````mdx
+```ts /shadcn/
+// Выделите слова shadcn.
+```
+````
+
+## Line Numbers
+
+````mdx
+```ts showLineNumbers
+// При этом будут показаны номера строк.
+```
+````

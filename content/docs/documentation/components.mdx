@@ -1,0 +1,157 @@
+---
+title: Компоненты
+description: Используйте компоненты React в Markdown с использованием MDX.
+---
+
+Следующие компоненты доступны из коробки для использования в Markdown.
+
+Если вы хотите создать и добавить свои собственные компоненты, смотрите раздел [Custom Components](#custom-components) ниже.
+
+## Встроенные компоненты
+
+### 1. Callout
+
+```mdx
+<Callout type=" default | warning | danger ">
+
+Это компонент по умолчанию callout. Вы можете встроить **Markdown** внутри `callout`.
+
+</Callout>
+```
+
+<Callout>
+
+This is a default callout. You can embed **Markdown** inside a `callout`.
+
+</Callout>
+
+<Callout type="warning">
+
+This is a warning callout. It uses the props `type="warning"`.
+
+</Callout>
+
+<Callout type="danger">
+
+This is a danger callout. It uses the props `type="danger"`.
+
+</Callout>
+
+### 2. Card
+
+```mdx
+<Card href="#">
+
+#### Заголовок
+
+Внутри карточек можно использовать **markdown**.
+
+</Card>
+```
+
+<Card href="#">
+
+#### Заголовок
+
+Внутри карточек можно использовать **markdown**.
+
+</Card>
+
+Вы также можете использовать HTML для встраивания карточек в сетку.
+
+```mdx
+<div className="grid grid-cols-2 gap-4">
+  <Card href="#">
+    #### Первая карта
+    Внутри карточек можно использовать **markdown**.
+  </Card>
+
+  <Card href="#">
+    #### Вторая карта 
+    Вы также можете использовать `встроенный код` и блоки кода.
+  </Card>
+</div>
+```
+
+<div className="grid grid-cols-2 gap-4">
+  <Card href="#">
+    #### Первая карта 
+    Внутри карточек можно использовать **markdown**.
+  </Card>
+
+  <Card href="#">
+    #### Вторая карта 
+    Вы также можете использовать `встроенный код` и блоки кода.
+  </Card>
+</div>
+
+---
+
+## Пользовательские компоненты
+
+Вы можете добавить свои собственные компоненты, используя реквизит `components` из `useMDXComponent`.
+
+```ts title="components/mdx.tsx" {2,6}
+import { Callout } from "@/components/callout";
+import { CustomComponent } from "@/components/custom";
+
+const components = {
+  Callout,
+  CustomComponent,
+};
+
+export function Mdx({ code }) {
+  const Component = useMDXComponent(code);
+
+  return (
+    <div className="mdx">
+      <Component components={components} />
+    </div>
+  );
+}
+```
+
+После того как вы добавили свой пользовательский компонент, вы можете использовать его в MDX следующим образом:
+
+```js
+<CustomComponent propName="value" />
+```
+
+---
+
+## Элементы HTML
+
+Вы можете перезаписывать элементы HTML, используя ту же технику, что описана выше.
+
+```ts {4}
+const components = {
+  Callout,
+  CustomComponent,
+  hr: ({ ...props }) => <hr className="my-4 border-slate-200 md:my-6" />,
+};
+```
+
+Это перезапишет тег `<hr />` или `---` в Markdown с выводом HTML, приведенным выше.
+
+---
+
+## Styling
+
+Классы Tailwind CSS можно использовать внутри MDX для стилизации.
+
+```mdx
+<p className="text-red-600">This text will be red.</p>
+```
+
+Убедитесь, что вы указали путь к содержимому в файле `tailwind.config.js`:
+
+```js title="tailwind.config.js" {6}
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./content/**/*.{md,mdx}",
+  ],
+};
+```
